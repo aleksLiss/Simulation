@@ -68,7 +68,6 @@ public class MatrixA {
         setStartPoint(START_X, START_Y);
         setFinishPoint(FINISH_X, FINISH_Y);
     }
-
     private void renderMap() {
         for (int i = 0; i < BORDER_LINES; i++) {
             for (int j = 0; j < BORDER_COLUMNS; j++) {
