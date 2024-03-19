@@ -11,6 +11,10 @@ public class MatrixA {
     public static final int COLUM = 7;
     public static final int BORDER_LINES = LINES + 2;
     public static final int BORDER_COLUMNS = COLUM + 2;
+    public static final int START_X = 1;
+    public static final int START_Y = 1;
+    public static final int FINISH_X = 6;
+    public static final int FINISH_Y = 6;
 
     public MatrixA() {
         this.openMap = new HashMap<>();
@@ -20,17 +24,37 @@ public class MatrixA {
 
     public static void main(String[] args) {
         MatrixA matrixA = new MatrixA();
+
         matrixA.setMap();
         matrixA.renderMap();
 
-        matrixA.setStartPoint(
-                matrixA.getNextStep().getX(),
-                matrixA.getNextStep().getY());
-        matrixA.setEmptyPrevPosition(matrixA.getStartPoint().getX(),
-                matrixA.getStartPoint().getY());
+        Field field = matrixA.getNextStep(matrixA.getStartPoint());
+        matrixA.setNameOfField(field);
+        matrixA.setFieldFromCloseArr(0);
+        matrixA.renderMap();
+
+        Field field1 = matrixA.getNextStep(field);
+        matrixA.setNameOfField(field1);
+        matrixA.setFieldFromCloseArr(1);
+        matrixA.renderMap();
+
+        Field field2 = matrixA.getNextStep(field1);
+        matrixA.setNameOfField(field2);
+        matrixA.setFieldFromCloseArr(2);
+        matrixA.renderMap();
+
+        Field field3 = matrixA.getNextStep(field2);
+        matrixA.setNameOfField(field3);
+        matrixA.setFieldFromCloseArr(3);
+        matrixA.renderMap();
+
+        Field field4 = matrixA.getNextStep(field3);
+        matrixA.setNameOfField(field4);
+        matrixA.setFieldFromCloseArr(4);
         matrixA.renderMap();
 
     }
+
 
     private void setMap() {
         for (int i = 1; i < LINES + 1; i++) {
@@ -41,10 +65,9 @@ public class MatrixA {
                 map[i][j] = field;
             }
         }
-        setStartPoint(1, 1);
-        setFinishPoint(6, 6);
+        setStartPoint(START_X, START_Y);
+        setFinishPoint(FINISH_X, FINISH_Y);
     }
-
     private void renderMap() {
         for (int i = 0; i < BORDER_LINES; i++) {
             for (int j = 0; j < BORDER_COLUMNS; j++) {
@@ -65,11 +88,7 @@ public class MatrixA {
     }
 
     private Field getStartPoint() {
-        return map[1][1];
-    }
-
-    private void setEmptyPrevPosition(int x, int y){
-        map[x][y].setName(String.format("%d%d", x, y));
+        return map[START_X][START_Y];
     }
 
     private void setFinishPoint(int x, int y) {
@@ -77,56 +96,72 @@ public class MatrixA {
     }
 
     private Field getFinishPoint() {
-        return map[6][6];
+        return map[FINISH_X][FINISH_Y];
+    }
+
+    private void setNameOfField(Field field) {
+        field.setName("\uD83E\uDD8E");
+    }
+
+    private void setFieldFromCloseArr(int i){
+        closeArr.get(i).setName(String.format("%d%d", closeArr.get(i).getX(), closeArr.get(i).getX()));
     }
 
     private List<Field> getNeighbors(Field field) {
         int x = field.getX();
         int y = field.getY();
         Field[] arr = {
-                    map[x - 1][y],
-                    map[x - 1][y - 1],
-                    map[x][y - 1],
-                    map[x + 1][y - 1],
-                    map[x + 1][y],
-                    map[x + 1][y + 1],
-                    map[x][y + 1],
-                    map[x - 1][y + 1]
-            };
+                map[x - 1][y],
+                map[x - 1][y - 1],
+                map[x][y - 1],
+                map[x + 1][y - 1],
+                map[x + 1][y],
+                map[x + 1][y + 1],
+                map[x][y + 1],
+                map[x - 1][y + 1]
+        };
         List<Field> result = new ArrayList<>();
         IntStream.range(0, arr.length - 1).forEach(i -> {
-            if(arr[i] != null){
+            if (arr[i] != null && !closeArr.contains(arr[i])) {
                 result.add(arr[i]);
             }
         });
         return result;
     }
-    private Field getNextStep(){
-        List<Field> neighbors = getNeighbors(getStartPoint());
+
+    private Field getNextStep(Field startPoint) {
+
+        closeArr.add(startPoint); // 1.
+
+        List<Field> neighbors = getNeighbors(startPoint); // 2
+
         int finishX = getFinishPoint().getX();
         int finishY = getFinishPoint().getY();
-        for (Field field: neighbors){
+
+        for (Field field : neighbors) {
             int counterX = finishX - field.getX();
             int counterY = finishY - field.getY();
             double result;
-            if(field.getX() == field.getY()){
+            if (field.getX() == field.getY()) {
                 result = counterX + counterY + 1.4;
-            }else {
+            } else {
                 result = counterX + counterY + 1;
             }
             openMap.put(field, result);
         }
         double min = 100.0;
         Field result = null;
-        for (Map.Entry entry: openMap.entrySet()){
-            if((double)entry.getValue() < min){
-                min = (double)entry.getValue();
+        for (Map.Entry entry : openMap.entrySet()) {
+            if ((double) entry.getValue() < min) {
+                min = (double) entry.getValue();
                 result = (Field) entry.getKey();
             }
         }
+        openMap.clear();
         return result;
-    };
+    }
 
+;
 }
 
 
