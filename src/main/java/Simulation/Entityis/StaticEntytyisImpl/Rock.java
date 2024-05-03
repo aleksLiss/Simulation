@@ -1,4 +1,10 @@
 package Simulation.Entityis.StaticEntytyisImpl;
 
-public class Rock {
+import Simulation.Entityis.BasicEntity.Entity;
+
+public class Rock extends Entity {
+    private String name;
+    public Rock() {
+        this.name = "R";
+    }
 }

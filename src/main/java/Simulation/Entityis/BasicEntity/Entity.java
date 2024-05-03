@@ -1,4 +1,5 @@
 package Simulation.Entityis.BasicEntity;
 
-public class Entity {
+public abstract class Entity {
+    private String name;
 }
