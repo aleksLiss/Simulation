@@ -5,19 +5,23 @@ import Simulation.Entityis.MoovableEntytyis.Herbivore;
 import Simulation.Entityis.MoovableEntytyis.Predator;
 import Simulation.Entityis.StaticEntytyisImpl.Empty;
 import Simulation.Entityis.StaticEntytyisImpl.Grass;
+import Simulation.Storage.GrassesAndHerbivoresAndPredatorsOnMap;
+import Simulation.Storage.Switcher;
 
 
 import java.util.Map;
 
 public class Filler {
     private Simulation simulation;
+    private GrassesAndHerbivoresAndPredatorsOnMap storage;
     private int coordinateX;
     private int coordinateY;
 
-    public Filler(Simulation simulation, int coordinateX, int coordinateY) {
+    public Filler(Simulation simulation, int coordinateX, int coordinateY, GrassesAndHerbivoresAndPredatorsOnMap storage) {
         this.simulation = simulation;
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
+        this.storage = storage;
     }
 
     public void fill() {
@@ -28,14 +32,20 @@ public class Filler {
                 Empty empty = new Empty();
                 // 1 Grass
                 if (i == j) {
-                    map.put(new Coordinate(i, j), new Grass());
+                    Grass grass = new Grass();
+                    storage.addEntityToStorage(Switcher.GRASS, i, j, grass);
+                    map.put(new Coordinate(i, j), grass);
                 } else {
                     if (i == 3 && j == 5) {
                         // 2 HERBIVORE
-                        map.put(new Coordinate(i, j), new Herbivore());
+                        Herbivore herbivore = new Herbivore();
+                        storage.addEntityToStorage(Switcher.HERBIVORE, i, j, herbivore);
+                        map.put(new Coordinate(i, j), herbivore);
                     } else if (i == 7 && j == 5) {
                         // 3 PREDATOR
-                        map.put(new Coordinate(i, j), new Predator());
+                        Predator predator = new Predator();
+                        storage.addEntityToStorage(Switcher.PREDATOR, i, j, predator);
+                        map.put(new Coordinate(i, j), predator);
                     } else {
                         // 4 EMPTY
                         map.put(new Coordinate(i, j), new Empty());
@@ -44,7 +54,7 @@ public class Filler {
             }
         }
     }
-
+/*
     public void renderMap() {
         Map<Coordinate, Entity> map = simulation.getMapSimulation();
         for (int i = 0; i <= coordinateX; i++) {
@@ -68,4 +78,6 @@ public class Filler {
 
     }
 
+
+ */
 }

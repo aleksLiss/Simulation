@@ -11,4 +11,9 @@ public class Herbivore extends Creature{
     public String toString() {
         return "H";
     }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
 }

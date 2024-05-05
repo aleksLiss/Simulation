@@ -8,8 +8,12 @@ public class Tree extends Entity {
         this.name = "T";
     }
 
-    @Override
-    public String toString(){
+    public String getName(){
         return name;
     }
+    @Override
+    public String toString(){
+        return getName();
+    }
+
 }

@@ -8,6 +8,10 @@ public class Grass extends Entity {
         this.name = "G";
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString(){
         return name;
