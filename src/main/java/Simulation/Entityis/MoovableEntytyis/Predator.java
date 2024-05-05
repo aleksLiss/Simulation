@@ -18,6 +18,5 @@ public class Predator extends Creature{
                 "speed=" + SPEED + "; " +
                 "hp=" + hp + "}";
     }
-
 }
 
