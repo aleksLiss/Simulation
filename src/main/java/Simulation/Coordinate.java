@@ -21,7 +21,6 @@ public class Coordinate {
     public void setY(int y) {
         this.y = y;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -29,7 +28,6 @@ public class Coordinate {
         Coordinate that = (Coordinate) o;
         return x == that.x && y == that.y;
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(x, y);

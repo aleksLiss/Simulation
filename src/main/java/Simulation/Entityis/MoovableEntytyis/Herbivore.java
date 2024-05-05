@@ -6,7 +6,6 @@ public class Herbivore extends Creature{
     private int hp;
     @Override
     void makeMove() {
-
     }
     @Override
     public String toString() {
