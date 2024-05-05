@@ -13,10 +13,7 @@ public class Predator extends Creature{
     }
     @Override
     public String toString(){
-        return "Predator{" +
-                "name=" + NAME + "; " +
-                "speed=" + SPEED + "; " +
-                "hp=" + hp + "}";
+        return "P";
     }
 }
 

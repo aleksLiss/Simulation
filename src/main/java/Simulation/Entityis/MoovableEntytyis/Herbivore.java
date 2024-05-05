@@ -9,9 +9,6 @@ public class Herbivore extends Creature{
     }
     @Override
     public String toString() {
-        return "Herbivore{" +
-                "name=" + NAME + "; " +
-                "speed=" + SPEED + "; " +
-                "hp=" + hp + '}';
+        return "H";
     }
 }
