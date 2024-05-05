@@ -7,4 +7,9 @@ public class Rock extends Entity {
     public Rock() {
         this.name = "R";
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

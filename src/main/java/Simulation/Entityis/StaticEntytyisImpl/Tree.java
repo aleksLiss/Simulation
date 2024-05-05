@@ -7,4 +7,9 @@ public class Tree extends Entity {
     public Tree() {
         this.name = "T";
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }
