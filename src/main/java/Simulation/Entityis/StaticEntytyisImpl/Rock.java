@@ -8,6 +8,10 @@ public class Rock extends Entity {
         this.name = "R";
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString(){
         return name;

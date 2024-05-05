@@ -15,5 +15,10 @@ public class Predator extends Creature{
     public String toString(){
         return "P";
     }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
 }
 
