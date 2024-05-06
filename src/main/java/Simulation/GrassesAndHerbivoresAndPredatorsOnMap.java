@@ -1,6 +1,5 @@
-package Simulation.Storage;
+package Simulation;
 
-import Simulation.Coordinate;
 import Simulation.Entityis.BasicEntity.Entity;
 import Simulation.Entityis.MoovableEntytyis.Herbivore;
 import Simulation.Entityis.MoovableEntytyis.Predator;

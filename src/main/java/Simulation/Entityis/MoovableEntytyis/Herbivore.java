@@ -3,9 +3,10 @@ package Simulation.Entityis.MoovableEntytyis;
 import Simulation.Coordinate;
 import Simulation.Entityis.StaticEntytyisImpl.Grass;
 import Simulation.Simulation;
-import Simulation.Storage.GrassesAndHerbivoresAndPredatorsOnMap;
-import Simulation.Storage.Switcher;
+import Simulation.Switcher;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Herbivore extends Creature{
@@ -13,13 +14,13 @@ public class Herbivore extends Creature{
     private static final char NAME = 'H';
     private int hp;
     private Coordinate goal;
-    private GrassesAndHerbivoresAndPredatorsOnMap storage;
     private Simulation simulation;
     private boolean isGoal;
-    public Herbivore() {
+    public Herbivore(Simulation simulation) {
         this.hp = 100;
         this.goal = null;
         this.isGoal = false;
+        this.simulation = simulation;
     }
 
     @Override
@@ -28,25 +29,72 @@ public class Herbivore extends Creature{
             setGoal();
         }
 
-        Coordinate start = storage.getCoordinateOnMap(Switcher.HERBIVORE, this);
+        Coordinate start = simulation.getStorage().getCoordinateOnMap(Switcher.HERBIVORE, this);
 
         int finishX = goal.getX();
         int finishY = goal.getY();
-        System.out.println(finishX);
-        System.out.println(finishY);
 
+        int copyStartX = start.getX();
+        int copyStartY = start.getY();
 
-        int firstStep = start.getX() + 1;
-        int secondStep = start.getY() + 1;
+        System.out.println(start.getX());
+        System.out.println(start.getY());
 
+        List<Coordinate> wayToGoal = new ArrayList<>();
 
+        while(copyStartX != finishX && copyStartY != finishY){
+            int counterStep = 2;
 
+            if(copyStartX < finishX){
+                copyStartX++;
+                counterStep--;
+            }else if(copyStartX > finishX){
+                copyStartX--;
+                counterStep--;
+            }
+
+            if(copyStartY < finishY){
+                copyStartY++;
+                counterStep--;
+            }else if(copyStartY > finishY){
+                copyStartY--;
+                counterStep--;
+            }
+
+            if(counterStep == 0){
+                wayToGoal.add(new Coordinate(copyStartX, copyStartY));
+            }else{
+                if(copyStartX == finishX){
+                    if(copyStartY > finishY){
+                        copyStartY--;
+                    }else{
+                        copyStartY++;
+                    }
+                    wayToGoal.add(new Coordinate(copyStartX, copyStartY));
+                }else {
+                    if(copyStartX > finishX){
+                        copyStartX--;
+                    }else {
+                        copyStartX++;
+                    }
+                }
+                wayToGoal.add(new Coordinate(copyStartX, copyStartY));
+            }
+        }
+        int counterStep = 1;
+        for(Coordinate coordinate: wayToGoal){
+            System.out.printf("%d - step to goal", counterStep);
+            System.out.println(coordinate.getX());
+            System.out.println(coordinate.getY());
+            counterStep++;
+        }
     }
-    public void setGoal(){
+    private void setGoal(){
         for(Map.Entry entry: simulation.getStorage().getGrasses().entrySet()){
             Grass grass = (Grass) entry.getValue();
             if(!grass.isGoal()){
                 goal = (Coordinate) entry.getKey();
+                grass.setGoal();
                 break;
             }
         }

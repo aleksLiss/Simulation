@@ -1,7 +1,6 @@
 package Simulation;
 
 import Simulation.Entityis.MoovableEntytyis.Herbivore;
-import Simulation.Storage.GrassesAndHerbivoresAndPredatorsOnMap;
 
 import java.util.Map;
 

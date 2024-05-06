@@ -1,11 +1,5 @@
 package Simulation;
 
-import Simulation.Entityis.StaticEntytyisImpl.Grass;
-import Simulation.Storage.GrassesAndHerbivoresAndPredatorsOnMap;
-import Simulation.Storage.Switcher;
-
-import java.util.Map;
-
 public class MainTest {
 
     private static final int COORDINATE_X = 10;

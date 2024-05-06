@@ -5,8 +5,6 @@ import Simulation.Entityis.MoovableEntytyis.Herbivore;
 import Simulation.Entityis.MoovableEntytyis.Predator;
 import Simulation.Entityis.StaticEntytyisImpl.Empty;
 import Simulation.Entityis.StaticEntytyisImpl.Grass;
-import Simulation.Storage.GrassesAndHerbivoresAndPredatorsOnMap;
-import Simulation.Storage.Switcher;
 
 
 import java.util.Map;
@@ -37,7 +35,7 @@ public class FillMap {
                 } else {
                     if (i == 3 && j == 5) {
                         // 2 HERBIVORE
-                        Herbivore herbivore = new Herbivore();
+                        Herbivore herbivore = new Herbivore(simulation);
                         storage.putEntityToStorage(Switcher.HERBIVORE, nextCell, herbivore);
                         map.put(new Coordinate(i, j), herbivore);
                     } else if (i == 7 && j == 5) {
