@@ -15,12 +15,12 @@ public class Simulation {
     private int length;
     private int width;
     private int counter;
-    private Actions actions;
+//    private Actions actions;
     private GrassesAndHerbivoresAndPredatorsOnMap storage;
     public Simulation(int length, int width, GrassesAndHerbivoresAndPredatorsOnMap storage) {
         this.mapSimulation = new HashMap<>();
         this.counter = 0;
-        this.actions = new Actions(this);
+//        this.actions = new Actions(this, storage);
         this.length = length;
         this.width = width;
         this.storage = storage;
@@ -71,5 +71,36 @@ public class Simulation {
             Coordinate coordinate = (Coordinate) entry.getKey();
             mapSimulation.put(coordinate, (Grass)entry.getValue());
         }
+    }
+
+
+    public void renderMap(){
+
+        for (int i = 0; i <= length; i++) {
+
+            for (int j = 0; j <= width; j++) {
+
+                if(i == 0 || i == length){
+                    System.out.print(" + ");
+                }else {
+                    if (j == 0) {
+                        System.out.print("+");
+                    }
+                    if(j == width){
+                        System.out.println("+");
+                    }
+                    else {
+                        Coordinate coordinate = new Coordinate(i, j);
+                        System.out.print(" " + mapSimulation.get(coordinate).getName() + " ");
+                    }
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("\n");
+    }
+
+    public GrassesAndHerbivoresAndPredatorsOnMap getStorage(){
+        return storage;
     }
 }

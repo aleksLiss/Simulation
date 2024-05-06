@@ -8,36 +8,28 @@ import java.util.Map;
 
 public class MainTest {
 
-    private static final int COORDINATE_X = 7;
-    private static final int COORDINATE_Y = 7;
+    private static final int COORDINATE_X = 10;
+    private static final int COORDINATE_Y = 10;
     public static void main(String[] args) {
         GrassesAndHerbivoresAndPredatorsOnMap storage = new GrassesAndHerbivoresAndPredatorsOnMap();
-
         Simulation simulation = new Simulation(COORDINATE_X, COORDINATE_Y, storage);
-
         FillMap filler = new FillMap(simulation, COORDINATE_X, COORDINATE_Y, storage);
-
         filler.fill();
 
-        FindWayToGoal findWayToGoal = new FindWayToGoal(simulation, storage);
 
-        RenderMap.render(simulation);
 
+        Actions actions = new Actions(simulation, storage);
 
         // first step
-        findWayToGoal.nextCoordinate(Switcher.HERBIVORE);
-
-        RenderMap.render(simulation);
+        actions.nextTurn();
+        simulation.renderMap();
 
         // two step
-        findWayToGoal.nextCoordinate(Switcher.HERBIVORE);
-
-        RenderMap.render(simulation);
+        actions.nextTurn();
+        simulation.renderMap();
 
         // three step
-        findWayToGoal.nextCoordinate(Switcher.HERBIVORE);
-
-        RenderMap.render(simulation);
-
+        actions.nextTurn();
+        simulation.renderMap();
     }
 }

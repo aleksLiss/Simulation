@@ -28,21 +28,22 @@ public class FillMap {
         Map<Coordinate, Entity> map = simulation.getMapSimulation();
         for (int i = 0; i <= coordinateX; i++) {
             for (int j = 0; j <= coordinateY; j++) {
+                Coordinate nextCell = new Coordinate(i, j);
                 // 1 Grass
                 if (i == j) {
                     Grass grass = new Grass();
-                    storage.addEntityToStorage(Switcher.GRASS, i, j, grass);
+                    storage.putEntityToStorage(Switcher.GRASS, nextCell, grass);
                     map.put(new Coordinate(i, j), grass);
                 } else {
                     if (i == 3 && j == 5) {
                         // 2 HERBIVORE
                         Herbivore herbivore = new Herbivore();
-                        storage.addEntityToStorage(Switcher.HERBIVORE, i, j, herbivore);
+                        storage.putEntityToStorage(Switcher.HERBIVORE, nextCell, herbivore);
                         map.put(new Coordinate(i, j), herbivore);
                     } else if (i == 7 && j == 5) {
                         // 3 PREDATOR
                         Predator predator = new Predator();
-                        storage.addEntityToStorage(Switcher.PREDATOR, i, j, predator);
+                        storage.putEntityToStorage(Switcher.PREDATOR, nextCell, predator);
                         map.put(new Coordinate(i, j), predator);
                     } else {
                         // 4 EMPTY
