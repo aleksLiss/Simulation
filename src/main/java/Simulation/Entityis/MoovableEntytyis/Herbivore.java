@@ -42,7 +42,7 @@ public class Herbivore extends Creature{
 
         List<Coordinate> wayToGoal = new ArrayList<>();
 
-        while(copyStartX != finishX && copyStartY != finishY){
+        while((copyStartX != finishX) || (copyStartY != finishY)){
             int counterStep = 2;
 
             if(copyStartX < finishX){
@@ -81,12 +81,14 @@ public class Herbivore extends Creature{
                 wayToGoal.add(new Coordinate(copyStartX, copyStartY));
             }
         }
-        int counterStep = 1;
+
+
+        int step = 1;
         for(Coordinate coordinate: wayToGoal){
-            System.out.printf("%d - step to goal", counterStep);
+            System.out.printf("%d - step to goal\n", step);
             System.out.println(coordinate.getX());
             System.out.println(coordinate.getY());
-            counterStep++;
+            step++;
         }
     }
     private void setGoal(){

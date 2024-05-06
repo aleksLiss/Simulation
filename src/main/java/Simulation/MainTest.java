@@ -18,12 +18,5 @@ public class MainTest {
         actions.nextTurn();
         simulation.renderMap();
 
-        // two step
-        actions.nextTurn();
-        simulation.renderMap();
-
-        // three step
-        actions.nextTurn();
-        simulation.renderMap();
     }
 }
