@@ -3,17 +3,12 @@ package Simulation.Entityis.StaticEntytyisImpl;
 import Simulation.Entityis.BasicEntity.Entity;
 
 public class Rock extends Entity {
-    private String name;
+    private char name;
     public Rock() {
-        this.name = "R";
+        this.name = 'R';
     }
 
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString(){
+    public char getName() {
         return name;
     }
 }

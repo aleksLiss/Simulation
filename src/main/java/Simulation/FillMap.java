@@ -11,13 +11,13 @@ import Simulation.Storage.Switcher;
 
 import java.util.Map;
 
-public class Filler {
+public class FillMap {
     private Simulation simulation;
     private GrassesAndHerbivoresAndPredatorsOnMap storage;
     private int coordinateX;
     private int coordinateY;
 
-    public Filler(Simulation simulation, int coordinateX, int coordinateY, GrassesAndHerbivoresAndPredatorsOnMap storage) {
+    public FillMap(Simulation simulation, int coordinateX, int coordinateY, GrassesAndHerbivoresAndPredatorsOnMap storage) {
         this.simulation = simulation;
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
@@ -28,8 +28,6 @@ public class Filler {
         Map<Coordinate, Entity> map = simulation.getMapSimulation();
         for (int i = 0; i <= coordinateX; i++) {
             for (int j = 0; j <= coordinateY; j++) {
-                Coordinate coordinate = new Coordinate(i, j);
-                Empty empty = new Empty();
                 // 1 Grass
                 if (i == j) {
                     Grass grass = new Grass();
@@ -54,30 +52,4 @@ public class Filler {
             }
         }
     }
-/*
-    public void renderMap() {
-        Map<Coordinate, Entity> map = simulation.getMapSimulation();
-        for (int i = 0; i <= coordinateX; i++) {
-            if (i == 0) {
-                System.out.println("+ + + + + + + + + + ");
-            }
-            for (int j = 0; j <= coordinateY; j++) {
-                if (j == 0) {
-                    System.out.print("+");
-                } else if (j == coordinateY) {
-                    System.out.println("+");
-                } else {
-                    Coordinate coordinate = new Coordinate(i, j);
-                    System.out.print(" " + map.get(coordinate) + " ");
-                }
-            }
-            if (i == coordinateX) {
-                System.out.println("+ + + + + + + + + + ");
-            }
-        }
-
-    }
-
-
- */
 }

@@ -1,6 +1,11 @@
 package Simulation;
 
 import Simulation.Entityis.BasicEntity.Entity;
+import Simulation.Entityis.MoovableEntytyis.Herbivore;
+import Simulation.Entityis.MoovableEntytyis.Predator;
+import Simulation.Entityis.StaticEntytyisImpl.Empty;
+import Simulation.Entityis.StaticEntytyisImpl.Grass;
+import Simulation.Storage.GrassesAndHerbivoresAndPredatorsOnMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,12 +16,14 @@ public class Simulation {
     private int width;
     private int counter;
     private Actions actions;
-    public Simulation(int length, int width) {
+    private GrassesAndHerbivoresAndPredatorsOnMap storage;
+    public Simulation(int length, int width, GrassesAndHerbivoresAndPredatorsOnMap storage) {
         this.mapSimulation = new HashMap<>();
         this.counter = 0;
         this.actions = new Actions(this);
         this.length = length;
         this.width = width;
+        this.storage = storage;
     }
 
     public Map<Coordinate, Entity> getMapSimulation(){
@@ -29,5 +36,40 @@ public class Simulation {
 
     public int getWidth() {
         return width;
+    }
+
+    private void removeEntityFromMap(Coordinate coordinate){
+        mapSimulation.put(coordinate, new Empty());
+    }
+
+    public void updateMap(){
+        updateGrasses();
+        updateHerbivores();
+        updatePredators();
+    }
+
+    private void updatePredators(){
+        Map<Coordinate, Predator> predatorMap = storage.getPredators();
+        for(Map.Entry entry: predatorMap.entrySet()){
+            Coordinate coordinate = (Coordinate) entry.getKey();
+            mapSimulation.put(coordinate, (Predator) entry.getValue());
+        }
+    }
+
+
+    private void updateHerbivores(){
+        Map<Coordinate, Herbivore> herbivoreMap = storage.getHerbivores();
+        for(Map.Entry entry: herbivoreMap.entrySet()){
+            Coordinate coordinate = (Coordinate) entry.getKey();
+            mapSimulation.put(coordinate, (Herbivore) entry.getValue());
+        }
+    }
+
+    private void updateGrasses(){
+        Map<Coordinate, Grass> grassMap = storage.getGrasses();
+        for(Map.Entry entry: grassMap.entrySet()){
+            Coordinate coordinate = (Coordinate) entry.getKey();
+            mapSimulation.put(coordinate, (Grass)entry.getValue());
+        }
     }
 }

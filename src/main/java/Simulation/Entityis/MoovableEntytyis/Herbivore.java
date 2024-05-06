@@ -2,18 +2,19 @@ package Simulation.Entityis.MoovableEntytyis;
 
 public class Herbivore extends Creature{
     private static final int SPEED = 2;
-    private static final String NAME = "H";
+    private static final char NAME = 'H';
     private int hp;
-    @Override
-    void makeMove() {
-    }
-    @Override
-    public String toString() {
-        return "H";
+
+    public Herbivore() {
+        this.hp = 100;
     }
 
     @Override
-    public String getName() {
+    void makeMove() {
+
+    }
+    @Override
+    public char getName() {
         return NAME;
     }
 }

@@ -3,17 +3,12 @@ package Simulation.Entityis.StaticEntytyisImpl;
 import Simulation.Entityis.BasicEntity.Entity;
 
 public class Tree extends Entity {
-    private String name;
+    private char name;
     public Tree() {
-        this.name = "T";
+        this.name = 'T';
     }
 
-    public String getName(){
+    public char getName(){
         return name;
     }
-    @Override
-    public String toString(){
-        return getName();
-    }
-
 }

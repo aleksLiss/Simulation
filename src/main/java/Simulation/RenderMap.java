@@ -22,7 +22,7 @@ public class RenderMap {
                     System.out.println("+");
                 } else {
                     Coordinate coordinate = new Coordinate(i, j);
-                    System.out.print(" " + map.get(coordinate) + " ");
+                    System.out.print(" " + map.get(coordinate).getName() + " ");
                 }
             }
             if (i == coordinateX) {

@@ -61,6 +61,7 @@ public class GrassesAndHerbivoresAndPredatorsOnMap {
             case HERBIVORE:
                 for (Map.Entry entry : herbivores.entrySet()) {
                     coordinate = (Coordinate) entry.getKey();
+                    break;
                 }
                 break;
             case PREDATOR:
@@ -70,6 +71,18 @@ public class GrassesAndHerbivoresAndPredatorsOnMap {
                 break;
         }
         return coordinate;
+    }
+
+    public Map<Coordinate, Herbivore> getHerbivores(){
+        return herbivores;
+    }
+
+    public Map<Coordinate, Grass> getGrasses() {
+        return grasses;
+    }
+
+    public Map<Coordinate, Predator> getPredators() {
+        return predators;
     }
 }
 

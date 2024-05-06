@@ -3,19 +3,12 @@ package Simulation.Entityis.StaticEntytyisImpl;
 import Simulation.Entityis.BasicEntity.Entity;
 
 public class Empty extends Entity {
-
-    private String name;
-
+    private char name;
     public Empty(){
-        this.name = "E";
+        this.name = 'E';
     }
 
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString(){
+    public char getName() {
         return name;
     }
 }

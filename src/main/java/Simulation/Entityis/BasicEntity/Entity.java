@@ -1,7 +1,6 @@
 package Simulation.Entityis.BasicEntity;
 
 public abstract class Entity {
-    private String name;
-
-    public abstract String getName();
+    private char name;
+    public abstract char getName();
 }

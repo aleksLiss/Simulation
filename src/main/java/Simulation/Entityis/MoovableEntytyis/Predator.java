@@ -2,7 +2,7 @@ package Simulation.Entityis.MoovableEntytyis;
 
 public class Predator extends Creature{
     private static final int SPEED = 1;
-    private static final String NAME = "P";
+    private static final char NAME = 'P';
     private int hp;
     public Predator() {
         this.hp = 100;
@@ -12,12 +12,7 @@ public class Predator extends Creature{
 
     }
     @Override
-    public String toString(){
-        return "P";
-    }
-
-    @Override
-    public String getName() {
+    public char getName() {
         return NAME;
     }
 }
