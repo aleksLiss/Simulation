@@ -1,4 +1,4 @@
-package Simulation.Storage;
+package Simulation;
 
 public enum Switcher {
 

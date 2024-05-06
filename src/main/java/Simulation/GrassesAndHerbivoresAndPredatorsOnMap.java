@@ -1,6 +1,5 @@
-package Simulation.Storage;
+package Simulation;
 
-import Simulation.Coordinate;
 import Simulation.Entityis.BasicEntity.Entity;
 import Simulation.Entityis.MoovableEntytyis.Herbivore;
 import Simulation.Entityis.MoovableEntytyis.Predator;
@@ -19,16 +18,16 @@ public class GrassesAndHerbivoresAndPredatorsOnMap {
         this.grasses = new HashMap<>();
     }
 
-    public void addEntityToStorage(Switcher switcher, int x, int y, Entity entity) {
+    public void putEntityToStorage(Switcher switcher, Coordinate coordinate, Entity entity) {
         switch (switcher) {
             case GRASS:
-                grasses.put(new Coordinate(x, y), (Grass) entity);
+                grasses.put(coordinate, (Grass) entity);
                 break;
             case HERBIVORE:
-                herbivores.put(new Coordinate(x, y), (Herbivore) entity);
+                herbivores.put(coordinate, (Herbivore) entity);
                 break;
             case PREDATOR:
-                predators.put(new Coordinate(x, y), (Predator) entity);
+                predators.put(coordinate, (Predator) entity);
                 break;
         }
     }
@@ -45,12 +44,8 @@ public class GrassesAndHerbivoresAndPredatorsOnMap {
                 break;
         }
     }
-    public void updateEntity(Switcher switcher, int x, int y, Entity entity) {
-        removeEntityFromMap(switcher, entity);
-        addEntityToStorage(switcher, x, y, entity);
-    }
 
-    public Coordinate getEntityFromMap(Switcher switcher) {
+    public Coordinate getCoordinateOnMap(Switcher switcher, Entity entity) {
         Coordinate coordinate = null;
         switch (switcher) {
             case GRASS:
@@ -60,7 +55,9 @@ public class GrassesAndHerbivoresAndPredatorsOnMap {
                 break;
             case HERBIVORE:
                 for (Map.Entry entry : herbivores.entrySet()) {
-                    coordinate = (Coordinate) entry.getKey();
+                    if(entity.equals(entry.getValue())){
+                        coordinate = (Coordinate) entry.getKey();
+                    }
                 }
                 break;
             case PREDATOR:
@@ -70,6 +67,18 @@ public class GrassesAndHerbivoresAndPredatorsOnMap {
                 break;
         }
         return coordinate;
+    }
+
+    public Map<Coordinate, Herbivore> getHerbivores(){
+        return herbivores;
+    }
+
+    public Map<Coordinate, Grass> getGrasses() {
+        return grasses;
+    }
+
+    public Map<Coordinate, Predator> getPredators() {
+        return predators;
     }
 }
 

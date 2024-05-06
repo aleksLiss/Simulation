@@ -1,12 +1,26 @@
 package Simulation;
 
+import Simulation.Entityis.MoovableEntytyis.Herbivore;
+
+import java.util.Map;
+
 public class Actions {
     private Simulation simulation;
-    public Actions(Simulation simulation) {
+    private GrassesAndHerbivoresAndPredatorsOnMap storage;
+    public Actions(Simulation simulation, GrassesAndHerbivoresAndPredatorsOnMap storage) {
         this.simulation = simulation;
+        this.storage = storage;
     }
 
+
     public void nextTurn(){
+        // 1. go all herbivores
+        Map<Coordinate, Herbivore> herbivores = storage.getHerbivores();
+        for(Map.Entry entry: herbivores.entrySet()){
+            Herbivore herbivore = (Herbivore) entry.getValue();
+            herbivore.makeMove();
+        }
+
 
     }
 
