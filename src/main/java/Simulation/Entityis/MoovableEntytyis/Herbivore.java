@@ -28,7 +28,8 @@ public class Herbivore extends Creature{
             setGoal();
         }
 
-        Coordinate start = simulation.getStorage().getCoordinateOnMap(Switcher.HERBIVORE, this);
+
+        Coordinate start = simulation.getStorage().getCoordinateOfCreature(this);
 
         int finishX = goal.getX();
         int finishY = goal.getY();
@@ -90,8 +91,10 @@ public class Herbivore extends Creature{
             step++;
         }
     }
+
+
     private void setGoal(){
-        for(Map.Entry entry: simulation.getStorage().getGrasses().entrySet()){
+        for(Map.Entry entry: simulation.getStorage().getStaticStorage().entrySet()){
             Grass grass = (Grass) entry.getValue();
             if(!grass.isGoal()){
                 goal = (Coordinate) entry.getKey();
@@ -100,6 +103,7 @@ public class Herbivore extends Creature{
             }
         }
     }
+
     @Override
     public char getName() {
         return NAME;
