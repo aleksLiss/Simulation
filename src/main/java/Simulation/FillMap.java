@@ -5,50 +5,35 @@ import Simulation.Entityis.MoovableEntytyis.Herbivore;
 import Simulation.Entityis.MoovableEntytyis.Predator;
 import Simulation.Entityis.StaticEntytyisImpl.Empty;
 import Simulation.Entityis.StaticEntytyisImpl.Grass;
+import Simulation.Entityis.StaticEntytyisImpl.Rock;
+import Simulation.Entityis.StaticEntytyisImpl.Tree;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class FillMap {
     private Simulation simulation;
     private GrassesAndHerbivoresAndPredatorsOnMap storage;
-    private int coordinateX;
-    private int coordinateY;
 
-    public FillMap(Simulation simulation, int coordinateX, int coordinateY, GrassesAndHerbivoresAndPredatorsOnMap storage) {
+    public FillMap(Simulation simulation, GrassesAndHerbivoresAndPredatorsOnMap storage) {
         this.simulation = simulation;
-        this.coordinateX = coordinateX;
-        this.coordinateY = coordinateY;
         this.storage = storage;
     }
 
-    public void fill() {
-        Map<Coordinate, Entity> map = simulation.getMapSimulation();
-        for (int i = 0; i <= coordinateX; i++) {
-            for (int j = 0; j <= coordinateY; j++) {
-                Coordinate nextCell = new Coordinate(i, j);
-                // 1 Grass
-                if (i == j) {
-                    Grass grass = new Grass();
-                    storage.putEntityToStorage(Switcher.GRASS, nextCell, grass);
-                    map.put(new Coordinate(i, j), grass);
-                } else {
-                    if (i == 3 && j == 5) {
-                        // 2 HERBIVORE
-                        Herbivore herbivore = new Herbivore(simulation);
-                        storage.putEntityToStorage(Switcher.HERBIVORE, nextCell, herbivore);
-                        map.put(new Coordinate(i, j), herbivore);
-                    } else if (i == 7 && j == 5) {
-                        // 3 PREDATOR
-                        Predator predator = new Predator();
-                        storage.putEntityToStorage(Switcher.PREDATOR, nextCell, predator);
-                        map.put(new Coordinate(i, j), predator);
-                    } else {
-                        // 4 EMPTY
-                        map.put(new Coordinate(i, j), new Empty());
-                    }
-                }
-            }
-        }
+    public void fillMoovable() {
+        storage.putIntoMoovableStorage(new Coordinate(2, 2), new Herbivore());
+        storage.putIntoMoovableStorage(new Coordinate(7, 8), new Predator());
+    }
+
+    public void fillStatic(){
+        storage.putIntoStaticStorage(new Coordinate(3, 5), new Rock());
+        storage.putIntoStaticStorage(new Coordinate(6, 8), new Rock());
+
+        storage.putIntoStaticStorage(new Coordinate(8, 8), new Tree());
+        storage.putIntoStaticStorage(new Coordinate(7, 9), new Tree());
+
+        storage.putIntoStaticStorage(new Coordinate(2, 5), new Grass());
+        storage.putIntoStaticStorage(new Coordinate(6, 6), new Grass());
     }
 }

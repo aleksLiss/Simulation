@@ -16,11 +16,10 @@ public class Herbivore extends Creature{
     private Coordinate goal;
     private Simulation simulation;
     private boolean isGoal;
-    public Herbivore(Simulation simulation) {
+    public Herbivore() {
         this.hp = 100;
         this.goal = null;
         this.isGoal = false;
-        this.simulation = simulation;
     }
 
     @Override
@@ -101,12 +100,10 @@ public class Herbivore extends Creature{
             }
         }
     }
-
     @Override
     public char getName() {
         return NAME;
     }
-
     private boolean isValidCoordinate(Coordinate coordinate){
         return true;
     }

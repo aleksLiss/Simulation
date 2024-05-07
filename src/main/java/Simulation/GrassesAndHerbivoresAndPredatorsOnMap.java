@@ -1,23 +1,31 @@
 package Simulation;
 
 import Simulation.Entityis.BasicEntity.Entity;
+import Simulation.Entityis.MoovableEntytyis.Creature;
 import Simulation.Entityis.MoovableEntytyis.Herbivore;
 import Simulation.Entityis.MoovableEntytyis.Predator;
 import Simulation.Entityis.StaticEntytyisImpl.Grass;
+import Simulation.Entityis.StaticEntytyisImpl.Rock;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GrassesAndHerbivoresAndPredatorsOnMap {
     private Map<Coordinate, Herbivore> herbivores;
     private Map<Coordinate, Grass> grasses;
     private Map<Coordinate, Predator> predators;
+    private Map<Coordinate, Entity> staticStorage;
+    private Map<Coordinate, Creature> moovableStorage;
     public GrassesAndHerbivoresAndPredatorsOnMap() {
         this.herbivores = new HashMap<>();
         this.predators = new HashMap<>();
         this.grasses = new HashMap<>();
+        this.staticStorage = new HashMap<>();
+        this.moovableStorage = new HashMap<>();
     }
 
+    /*
     public void putEntityToStorage(Switcher switcher, Coordinate coordinate, Entity entity) {
         switch (switcher) {
             case GRASS:
@@ -79,6 +87,23 @@ public class GrassesAndHerbivoresAndPredatorsOnMap {
 
     public Map<Coordinate, Predator> getPredators() {
         return predators;
+    }
+
+    */
+    public Map<Coordinate, Entity> getStaticStorage() {
+        return staticStorage;
+    }
+
+    public void putIntoStaticStorage(Coordinate coordinate, Entity entity){
+        staticStorage.put(coordinate, entity);
+    }
+
+    public Map<Coordinate, Creature> getMoovableStorage() {
+        return moovableStorage;
+    }
+
+    public void putIntoMoovableStorage(Coordinate coordinate, Creature creature){
+        moovableStorage.put(coordinate, creature);
     }
 }
 

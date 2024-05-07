@@ -42,6 +42,7 @@ public class Simulation {
         mapSimulation.put(coordinate, new Empty());
     }
 
+    /*
     public void updateMap() {
         updateGrasses();
         updateHerbivores();
@@ -74,7 +75,11 @@ public class Simulation {
     }
 
 
+     */
+
+
     public void renderMap() {
+        System.out.println("================================");
         for (int i = 0; i <= length; i++) {
             for (int j = 0; j <= width; j++) {
                 if (j == 0) {
@@ -83,8 +88,17 @@ public class Simulation {
                 if (j == width) {
                     System.out.println("+");
                 } else {
-                    Coordinate coordinate = new Coordinate(i, j);
-                    System.out.print(" " + mapSimulation.get(coordinate).getName() + " ");
+                    Entity staticE = storage.getStaticStorage().getOrDefault(new Coordinate(i, j), null);
+                    Entity mooveE = storage.getMoovableStorage().getOrDefault(new Coordinate(i, j), null);
+                    if(staticE == null && mooveE == null){
+                        System.out.print(" E ");
+                    }else{
+                        if(staticE != null){
+                            System.out.print(" " + staticE.getName() + " ");
+                        }else{
+                            System.out.print(" " + mooveE.getName() + " ");
+                        }
+                    }
                 }
             }
         }

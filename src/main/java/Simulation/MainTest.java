@@ -7,10 +7,9 @@ public class MainTest {
     public static void main(String[] args) {
         GrassesAndHerbivoresAndPredatorsOnMap storage = new GrassesAndHerbivoresAndPredatorsOnMap();
         Simulation simulation = new Simulation(COORDINATE_X, COORDINATE_Y, storage);
-        FillMap filler = new FillMap(simulation, COORDINATE_X, COORDINATE_Y, storage);
-        filler.fill();
-
-
+        FillMap filler = new FillMap(simulation, storage);
+        filler.fillMoovable();
+        filler.fillStatic();
 
         Actions actions = new Actions(simulation, storage);
 
