@@ -50,12 +50,12 @@ public class StorageEntitiyesOnMap {
         moovableStorage.remove(creature);
     }
 
-    public void fillMoovable() {
+    public void fillDefaultMoovable() {
         moovableStorage.put(new Coordinate(2, 2), new Herbivore());
         moovableStorage.put(new Coordinate(7, 8), new Predator());
     }
 
-    public void fillStatic(){
+    public void fillDefaultStatic(){
         staticStorage.put(new Coordinate(3, 5), new Rock());
         staticStorage.put(new Coordinate(6, 8), new Rock());
 

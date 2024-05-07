@@ -14,31 +14,17 @@ public class Simulation implements Actions{
     //    private Actions actions;
     private StorageEntitiyesOnMap storage;
 
-    public Simulation(int length, int width, StorageEntitiyesOnMap storage) {
+    public Simulation(int length, int width) {
         this.mapSimulation = new HashMap<>();
         this.counter = 0;
 //        this.actions = new Actions(this, storage);
         this.length = length;
         this.width = width;
-        this.storage = storage;
+        this.storage = new StorageEntitiyesOnMap();
     }
-
-    public Map<Coordinate, Entity> getMapSimulation() {
-        return mapSimulation;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
     private void removeEntityFromMap(Coordinate coordinate) {
         mapSimulation.put(coordinate, new Empty());
     }
-
     public void renderMap() {
         System.out.println("================================");
         for (int i = 0; i <= length; i++) {
@@ -72,8 +58,8 @@ public class Simulation implements Actions{
 
     @Override
     public void setSimulation() {
-        StorageEntitiyesOnMap storageEntitiyesOnMap = new StorageEntitiyesOnMap();
-        
+        storage.fillDefaultStatic();
+        storage.fillDefaultMoovable();
     }
 
     @Override

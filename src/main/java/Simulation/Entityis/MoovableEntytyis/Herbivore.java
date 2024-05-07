@@ -3,7 +3,6 @@ package Simulation.Entityis.MoovableEntytyis;
 import Simulation.Coordinate;
 import Simulation.Entityis.StaticEntytyisImpl.Grass;
 import Simulation.Simulation;
-import Simulation.Switcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +26,6 @@ public class Herbivore extends Creature{
         if(goal == null){
             setGoal();
         }
-
-
         Coordinate start = simulation.getStorage().getCoordinateOfCreature(this);
 
         int finishX = goal.getX();
