@@ -1,8 +1,9 @@
-package Simulation.Entityis.MoovableEntytyis;
+package Simulation.Entitis.MoovableEntytyis;
 
 import Simulation.Coordinate;
-import Simulation.Entityis.StaticEntytyisImpl.Grass;
-import Simulation.Simulation;
+import Simulation.Entitis.StaticEntytyisImpl.Grass;
+import Simulation.Entitis.StaticEntytyisImpl.StaticEnt;
+import Simulation.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,13 @@ public class Herbivore extends Creature{
     private static final char NAME = 'H';
     private int hp;
     private Coordinate goal;
-    private Simulation simulation;
+    public Storage storage;
     private boolean isGoal;
-    public Herbivore() {
+    public Herbivore(Storage storage) {
         this.hp = 100;
         this.goal = null;
         this.isGoal = false;
+        this.storage = storage;
     }
 
     @Override
@@ -26,7 +28,8 @@ public class Herbivore extends Creature{
         if(goal == null){
             setGoal();
         }
-        Coordinate start = simulation.getStorage().getCoordinateOfCreature(this);
+
+        Coordinate start = storage.getMovableStorage();
 
         int finishX = goal.getX();
         int finishY = goal.getY();
@@ -40,7 +43,7 @@ public class Herbivore extends Creature{
         List<Coordinate> wayToGoal = new ArrayList<>();
 
         while((copyStartX != finishX) || (copyStartY != finishY)){
-            int counterStep = 2;
+            int counterStep = SPEED;
 
             if(copyStartX < finishX){
                 copyStartX++;
@@ -91,9 +94,10 @@ public class Herbivore extends Creature{
 
 
     private void setGoal(){
-        for(Map.Entry entry: simulation.getStorage().getStaticStorage().entrySet()){
-            Grass grass = (Grass) entry.getValue();
-            if(!grass.isGoal()){
+        for(Map.Entry entry: storage.getStaticStorage().entrySet()){
+            StaticEnt staticEnt = (StaticEnt) entry.getValue();
+            if(staticEnt.getName() == 'G'){
+                Grass grass = (Grass) entry.getValue();
                 goal = (Coordinate) entry.getKey();
                 grass.setGoal();
                 break;

@@ -1,8 +1,8 @@
-package Simulation.Entityis.StaticEntytyisImpl;
+package Simulation.Entitis.StaticEntytyisImpl;
 
-import Simulation.Entityis.BasicEntity.Entity;
+import Simulation.Entitis.BasicEntity.Entity;
 
-public class Tree extends Entity {
+public class Tree extends StaticEnt {
     private char name;
     public Tree() {
         this.name = 'T';

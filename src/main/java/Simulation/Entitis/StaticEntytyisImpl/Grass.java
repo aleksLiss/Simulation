@@ -1,8 +1,8 @@
-package Simulation.Entityis.StaticEntytyisImpl;
+package Simulation.Entitis.StaticEntytyisImpl;
 
-import Simulation.Entityis.BasicEntity.Entity;
+import Simulation.Entitis.BasicEntity.Entity;
 
-public class Grass extends Entity {
+public class Grass extends StaticEnt {
     private char name;
     private boolean isGoal;
     public Grass(){

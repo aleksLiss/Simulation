@@ -1,4 +1,4 @@
-package Simulation.Entityis.MoovableEntytyis;
+package Simulation.Entitis.MoovableEntytyis;
 
 public class Predator extends Creature{
     private static final int SPEED = 1;
