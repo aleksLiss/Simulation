@@ -1,9 +1,9 @@
-package Simulation.Entityis.MoovableEntytyis;
+package Simulation.Entitis.MoovableEntytyis;
 
 import Simulation.Coordinate;
-import Simulation.Entityis.StaticEntytyisImpl.Grass;
-import Simulation.Simulation;
-import Simulation.Switcher;
+import Simulation.Entitis.StaticEntytyisImpl.Grass;
+import Simulation.Entitis.StaticEntytyisImpl.StaticEnt;
+import Simulation.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,13 @@ public class Herbivore extends Creature{
     private static final char NAME = 'H';
     private int hp;
     private Coordinate goal;
-    private Simulation simulation;
+    public Storage storage;
     private boolean isGoal;
-    public Herbivore(Simulation simulation) {
+    public Herbivore(Storage storage) {
         this.hp = 100;
         this.goal = null;
         this.isGoal = false;
-        this.simulation = simulation;
+        this.storage = storage;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class Herbivore extends Creature{
             setGoal();
         }
 
-        Coordinate start = simulation.getStorage().getCoordinateOnMap(Switcher.HERBIVORE, this);
+        Coordinate start = storage.getMovableStorage();
 
         int finishX = goal.getX();
         int finishY = goal.getY();
@@ -42,8 +42,8 @@ public class Herbivore extends Creature{
 
         List<Coordinate> wayToGoal = new ArrayList<>();
 
-        while(copyStartX != finishX && copyStartY != finishY){
-            int counterStep = 2;
+        while((copyStartX != finishX) || (copyStartY != finishY)){
+            int counterStep = SPEED;
 
             if(copyStartX < finishX){
                 copyStartX++;
@@ -81,18 +81,23 @@ public class Herbivore extends Creature{
                 wayToGoal.add(new Coordinate(copyStartX, copyStartY));
             }
         }
-        int counterStep = 1;
+
+
+        int step = 1;
         for(Coordinate coordinate: wayToGoal){
-            System.out.printf("%d - step to goal", counterStep);
+            System.out.printf("%d - step to goal\n", step);
             System.out.println(coordinate.getX());
             System.out.println(coordinate.getY());
-            counterStep++;
+            step++;
         }
     }
+
+
     private void setGoal(){
-        for(Map.Entry entry: simulation.getStorage().getGrasses().entrySet()){
-            Grass grass = (Grass) entry.getValue();
-            if(!grass.isGoal()){
+        for(Map.Entry entry: storage.getStaticStorage().entrySet()){
+            StaticEnt staticEnt = (StaticEnt) entry.getValue();
+            if(staticEnt.getName() == 'G'){
+                Grass grass = (Grass) entry.getValue();
                 goal = (Coordinate) entry.getKey();
                 grass.setGoal();
                 break;
@@ -104,7 +109,6 @@ public class Herbivore extends Creature{
     public char getName() {
         return NAME;
     }
-
     private boolean isValidCoordinate(Coordinate coordinate){
         return true;
     }

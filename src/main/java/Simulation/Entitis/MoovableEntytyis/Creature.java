@@ -1,6 +1,6 @@
-package Simulation.Entityis.MoovableEntytyis;
+package Simulation.Entitis.MoovableEntytyis;
 
-import Simulation.Entityis.BasicEntity.Entity;
+import Simulation.Entitis.BasicEntity.Entity;
 
 public abstract class Creature extends Entity {
     private int hp;

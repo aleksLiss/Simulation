@@ -1,4 +1,4 @@
-package Simulation.Entityis.BasicEntity;
+package Simulation.Entitis.BasicEntity;
 
 public abstract class Entity {
     private char name;

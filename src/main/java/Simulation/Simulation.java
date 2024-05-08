@@ -1,23 +1,22 @@
 package Simulation;
 
-import Simulation.Entityis.BasicEntity.Entity;
-import Simulation.Entityis.MoovableEntytyis.Herbivore;
-import Simulation.Entityis.MoovableEntytyis.Predator;
-import Simulation.Entityis.StaticEntytyisImpl.Empty;
-import Simulation.Entityis.StaticEntytyisImpl.Grass;
+import Simulation.Entitis.BasicEntity.Entity;
+import Simulation.Entitis.MoovableEntytyis.Creature;
+import Simulation.Entitis.MoovableEntytyis.Herbivore;
+import Simulation.Entitis.MoovableEntytyis.Predator;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Simulation {
+public class Simulation implements Actions{
     private Map<Coordinate, Entity> mapSimulation;
     private int length;
     private int width;
     private int counter;
     //    private Actions actions;
-    private GrassesAndHerbivoresAndPredatorsOnMap storage;
+    private Storage storage;
 
-    public Simulation(int length, int width, GrassesAndHerbivoresAndPredatorsOnMap storage) {
+    public Simulation(int length, int width, Storage storage) {
         this.mapSimulation = new HashMap<>();
         this.counter = 0;
 //        this.actions = new Actions(this, storage);
@@ -25,56 +24,8 @@ public class Simulation {
         this.width = width;
         this.storage = storage;
     }
-
-    public Map<Coordinate, Entity> getMapSimulation() {
-        return mapSimulation;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    private void removeEntityFromMap(Coordinate coordinate) {
-        mapSimulation.put(coordinate, new Empty());
-    }
-
-    public void updateMap() {
-        updateGrasses();
-        updateHerbivores();
-        updatePredators();
-    }
-
-    private void updatePredators() {
-        Map<Coordinate, Predator> predatorMap = storage.getPredators();
-        for (Map.Entry entry : predatorMap.entrySet()) {
-            Coordinate coordinate = (Coordinate) entry.getKey();
-            mapSimulation.put(coordinate, (Predator) entry.getValue());
-        }
-    }
-
-
-    private void updateHerbivores() {
-        Map<Coordinate, Herbivore> herbivoreMap = storage.getHerbivores();
-        for (Map.Entry entry : herbivoreMap.entrySet()) {
-            Coordinate coordinate = (Coordinate) entry.getKey();
-            mapSimulation.put(coordinate, (Herbivore) entry.getValue());
-        }
-    }
-
-    private void updateGrasses() {
-        Map<Coordinate, Grass> grassMap = storage.getGrasses();
-        for (Map.Entry entry : grassMap.entrySet()) {
-            Coordinate coordinate = (Coordinate) entry.getKey();
-            mapSimulation.put(coordinate, (Grass) entry.getValue());
-        }
-    }
-
-
     public void renderMap() {
+        System.out.println("================================");
         for (int i = 0; i <= length; i++) {
             for (int j = 0; j <= width; j++) {
                 if (j == 0) {
@@ -83,16 +34,57 @@ public class Simulation {
                 if (j == width) {
                     System.out.println("+");
                 } else {
-                    Coordinate coordinate = new Coordinate(i, j);
-                    System.out.print(" " + mapSimulation.get(coordinate).getName() + " ");
+                    Entity staticE = storage.getStaticStorage().getOrDefault(new Coordinate(i, j), null);
+                    Entity moveE = storage.getMovableStorage().getOrDefault(new Coordinate(i, j), null);
+                    if(staticE == null && moveE == null){
+                        System.out.print(" E ");
+                    }else{
+                        if(staticE != null){
+                            System.out.print(" " + staticE.getName() + " ");
+                        }else{
+                            System.out.print(" " + moveE.getName() + " ");
+                        }
+                    }
                 }
             }
         }
         System.out.println("================================");
     }
 
-
-    public GrassesAndHerbivoresAndPredatorsOnMap getStorage() {
+    public Storage getStorage(){
         return storage;
+    }
+
+    @Override
+    public void setSimulation() {
+        storage.fillDefaultStatic();
+        storage.fillDefaultMoovable();
+    }
+
+    @Override
+    public void nextTurn() {
+
+        Map<Coordinate, Creature> creatures = storage.getMovableStorage();
+
+        for(Map.Entry entry: creatures.entrySet()){
+            Creature creature = (Creature) entry.getValue();
+            if(creature.getName() == 'H'){
+                Herbivore herbivore = (Herbivore) creature;
+                herbivore.makeMove();
+            }else{
+                Predator predator = (Predator) creature;
+            }
+
+        }
+    }
+
+    @Override
+    public void startSimulation() {
+
+    }
+
+    @Override
+    public void stopSimulation() {
+
     }
 }

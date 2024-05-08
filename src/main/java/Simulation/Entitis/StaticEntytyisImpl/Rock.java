@@ -1,8 +1,8 @@
-package Simulation.Entityis.StaticEntytyisImpl;
+package Simulation.Entitis.StaticEntytyisImpl;
 
-import Simulation.Entityis.BasicEntity.Entity;
+import Simulation.Entitis.BasicEntity.Entity;
 
-public class Rock extends Entity {
+public class Rock extends StaticEnt {
     private char name;
     public Rock() {
         this.name = 'R';
