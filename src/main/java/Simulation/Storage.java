@@ -6,6 +6,7 @@ import Simulation.Entitis.MoovableEntytyis.Herbivore;
 import Simulation.Entitis.MoovableEntytyis.Predator;
 import Simulation.Entitis.StaticEntytyisImpl.Grass;
 import Simulation.Entitis.StaticEntytyisImpl.Rock;
+import Simulation.Entitis.StaticEntytyisImpl.StaticEnt;
 import Simulation.Entitis.StaticEntytyisImpl.Tree;
 
 import java.util.HashMap;
@@ -21,56 +22,60 @@ public class Storage {
 
 
 
-
-
-
-
-
-
-    public Coordinate getCoordinateOfCreature(Creature creature){
-        Coordinate result = null;
-        for(Map.Entry entry: movableStorage.entrySet()){
-            if(entry.getValue().equals(creature)){
-                result = (Coordinate) entry.getKey();
-            }
+    public Coordinate getCoordinateForEntity(Switcher switcher, Entity entity){
+        Coordinate coordinate = null;
+        switch(switcher){
+            case STATIC:
+                for(Map.Entry entry: staticStorage.entrySet()){
+                    if(entity.equals(entry.getValue())){
+                        coordinate = (Coordinate) entry.getKey();
+                    }
+                }
+                break;
+            case MOVABLE:
+                for(Map.Entry entry: movableStorage.entrySet()){
+                    if(entity.equals(entry.getValue())){
+                        coordinate = (Coordinate) entry.getKey();
+                    }
+                }
+                break;
         }
-        return result;
-    };
-
-
-    public Coordinate getStaticEntity(Entity entity){
-        Coordinate result = null;
-        for(Map.Entry entry: staticStorage.entrySet()){
-            if(entity.equals(entry.getValue())){
-                result = (Coordinate) entry.getKey();
-            }
-        }
-        return result;
+        return coordinate;
     }
-
-
 
     public Map<Coordinate, Entity> getStaticStorage() {
         return staticStorage;
     }
 
-    public void putIntoStaticStorage(Coordinate coordinate, Entity entity){
-        staticStorage.put(coordinate, entity);
-    }
 
     public Map<Coordinate, Creature> getMovableStorage() {
         return movableStorage;
     }
 
-    public void putIntoMovableStorage(Coordinate coordinate, Creature creature){
-        movableStorage.put(coordinate, creature);
+    public void addToStorage(Switcher switcher, Coordinate coordinate, Entity entity){
+        switch(switcher){
+            case MOVABLE:
+                Creature creature = (Creature) entity;
+                movableStorage.put(coordinate, creature);
+                break;
+            case STATIC:
+                StaticEnt staticEnt = (StaticEnt) entity;
+                staticStorage.put(coordinate, staticEnt);
+                break;
+        }
     }
-    public void removeFromStaticStorage(Entity entity){
-        staticStorage.remove(entity);
+
+    public void removeFromStorage(Switcher switcher, Coordinate coordinate){
+        switch (switcher){
+            case STATIC:
+                staticStorage.remove(coordinate);
+                break;
+            case MOVABLE:
+                movableStorage.remove(coordinate);
+                break;
+        }
     }
-    public void removeFromMovableStorage(Creature creature){
-        movableStorage.remove(creature);
-    }
+
 
     public void fillDefaultMoovable() {
         movableStorage.put(new Coordinate(2, 2), new Herbivore(this));
