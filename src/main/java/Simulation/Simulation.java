@@ -14,15 +14,15 @@ public class Simulation implements Actions{
     private int width;
     private int counter;
     //    private Actions actions;
-    private Storage storage;
+    public Storage storage;
 
     public Simulation(int length, int width, Storage storage) {
         this.mapSimulation = new HashMap<>();
         this.counter = 0;
-//        this.actions = new Actions(this, storage);
         this.length = length;
         this.width = width;
         this.storage = storage;
+//        this.actions = new Actions(this, storage);
     }
     public void renderMap() {
         System.out.println("================================");
@@ -36,12 +36,13 @@ public class Simulation implements Actions{
                 } else {
                     Entity staticE = storage.getStaticStorage().getOrDefault(new Coordinate(i, j), null);
                     Entity moveE = storage.getMovableStorage().getOrDefault(new Coordinate(i, j), null);
+//                    System.out.println(storage.getMovableStorage().size());
                     if(staticE == null && moveE == null){
                         System.out.print(" E ");
                     }else{
                         if(staticE != null){
                             System.out.print(" " + staticE.getName() + " ");
-                        }else{
+                        }else if(moveE != null){
                             System.out.print(" " + moveE.getName() + " ");
                         }
                     }
@@ -58,23 +59,21 @@ public class Simulation implements Actions{
     @Override
     public void setSimulation() {
         storage.fillDefaultStatic();
-        storage.fillDefaultMoovable();
+        storage.addToStorage(Switcher.MOVABLE, new Coordinate(2, 2), new Herbivore(storage, 1.0));
     }
 
     @Override
     public void nextTurn() {
-
         Map<Coordinate, Creature> creatures = storage.getMovableStorage();
-
         for(Map.Entry entry: creatures.entrySet()){
             Creature creature = (Creature) entry.getValue();
             if(creature.getName() == 'H'){
                 Herbivore herbivore = (Herbivore) creature;
                 herbivore.makeMove();
+                break;
             }else{
                 Predator predator = (Predator) creature;
             }
-
         }
     }
 
@@ -87,4 +86,6 @@ public class Simulation implements Actions{
     public void stopSimulation() {
 
     }
+
+
 }
